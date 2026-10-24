@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'news_page.dart' as news;
 
-void main() => runApp(const TabsApp());
+void main() => runApp(const news.NewsApp());
 
 class TabsApp extends StatelessWidget {
   const TabsApp({super.key});
