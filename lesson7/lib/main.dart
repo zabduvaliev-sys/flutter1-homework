@@ -245,6 +245,7 @@ String? validateConfirmPassword(String? value) {
   }
 }
 
+
 class ResultPage extends StatelessWidget {
   final String name;
   final String surname;
@@ -261,22 +262,70 @@ class ResultPage extends StatelessWidget {
     required this.login,
   });
 
+  Widget infoRow(IconData icon, String title, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.lightBlue, size: 24),
+          const SizedBox(width: 16),
+          Expanded(
+            child: RichText(
+              text: TextSpan(
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black87,
+                ),
+                children: [
+                  TextSpan(
+                    text: '$title: ',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(text: value),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Данные пользователя'),
+        centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Имя: $name'),
-            Text('Фамилия: $surname'),
-            Text('Телефон: $phone'),
-            Text('Email: $email'),
-            Text('Логин: $login'),
+            const SizedBox(height: 25),
+
+            CircleAvatar(
+              radius: 48,
+              backgroundColor: Colors.lightBlue,
+              child: Text(
+                name.isNotEmpty ? name[0].toUpperCase() : '?',
+                style: const TextStyle(
+                  fontSize: 40,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            infoRow(Icons.person, 'Имя', name),
+            infoRow(Icons.badge, 'Фамилия', surname),
+            infoRow(Icons.phone, 'Телефон', phone),
+            infoRow(Icons.email, 'Email', email),
+            infoRow(Icons.account_circle, 'Логин', login),
           ],
         ),
       ),
